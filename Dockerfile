@@ -21,8 +21,8 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     #install requirement in docker image
     /py/bin/pip install -r /tmp/requirements.txt && \
-    if [$DEV = "true"]; \
-        then /py/bin/pip install -r requirements.dev.txt ; \
+    if [ $DEV = "true" ]; \
+        then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
     #best not to use root user if compromise attack have full access 
