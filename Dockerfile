@@ -19,16 +19,16 @@ ARG DEV=false
 RUN python -m venv /py && \
 #this upgrade pip in Venv
     /py/bin/pip install --upgrade pip && \
-    apk add --update --no cache postgresql-client && \
-    apk add --update --no cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev &&\
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
     #install requirement in docker image
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
-    apk del .tmp-build-deps&&\
+    apk del .tmp-build-deps && \
     #best not to use root user if compromise attack have full access 
     adduser \
         --disabled-password \
